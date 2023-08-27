@@ -1,0 +1,39 @@
+<MainScreen>:
+    name:"home"
+    MDFloatLayout:
+        md_bg_color:1,1,1,1
+        MDBoxLayout:
+            size_hint: 1, .5
+            orientation: 'vertical'
+            padding: ('10dp', '10dp', '10dp', '10dp')
+            pos_hint:{"center_x":.5,"center_y":.7}
+            spacing:60
+            MDTextField:
+                id: ip_field
+                text: '192.168.0.101'
+                mode: "fill"
+                pos_hint:{"center_x":.5}
+                hint_text: "EnterIP Adress"
+                helper_text:"eg: 192.168.43.97"
+                required: True
+                text_color_normal: "black"
+                text_color_focus: "black"
+                hint_text_color_focus: "black"
+                hint_text_color_normal: "black"
+                line_color_focus:"black"
+                line_color_normal:"black"
+                # on_text: root.ip_field()
+                
+            
+            MDRectangleFlatIconButton:
+                icon:"arrow-right"
+                text:"CONTINUE"
+                pos_hint:{"center_x":.5}
+                size_hint:.6, None
+                height: dp(100)
+                on_release:
+                    root.manager.get_screen("login").url = f"http://{ip_field.text}:8000/api/"
+                    root.manager.get_screen("login").image_url = f"http://{ip_field.text}:8000/"
+                    root.manager.transition.direction="left"
+                    root.manager.current="login"
+                    # root.send_data()

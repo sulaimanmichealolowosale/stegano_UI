@@ -1,0 +1,24 @@
+<FullImage>:
+    name:"fullimage"
+    MDBoxLayout:
+        orientation: 'horizontal'
+        md_bg_color:rgba(52, 0 , 231, 255)
+        size_hint:1, .13
+        pos_hint:{"left":1, "top":1}
+        radius:[5, 5, 0, 0]
+        
+        MDIconButton:
+            icon:"arrow-left"
+            pos_hint:{"center_y":.5}
+            theme_text_color:"Custom"
+            text_color:(1,1,1,1)
+            on_release:
+                root.manager.transition.direction="down"
+                root.manager.current=root.previous_screen
+
+    AsyncImage:
+        source:root.image_url
+        radius:[50,50,50,50]
+        size_hint: 1, .8
+        allow_stretch:False
+        pos_hint:{"top":.8}

@@ -1,0 +1,141 @@
+<Register>:
+    name:"register"
+
+    MDBoxLayout:
+        size_hint:1, .1
+        md_bg_color:0,0,1,.7
+        pos_hint:{"left":1, "top":1}
+        MDIconButton:
+            icon:"arrow-left"
+            theme_text_color:"Custom"
+            text_color:(1,1,1,1)
+            pos_hint:{"center_y":.5}
+            on_release:
+                root.manager.transition.direction="right"
+                root.manager.current="user"
+        MDLabel:
+            text:"Register"
+            font_style:"H4"
+            halign:"left"
+            color:1,1,1,1
+            
+    MDScrollView:
+        id:scroll_view
+        effect_cls: "ScrollEffect"
+        bar_color:(0,0,1,1)
+        bar_inactive_color:(0,0,1,.5)
+        color:0,0,1,1
+        size_hint_y:.9
+        pos_hint:{"x":0, "top":.9}
+        do_scroll_x:False
+        do_scroll_y:True
+        md_bg_color:.5,.5,.5,.1
+        GridLayout:
+            id: user_grid
+            # size:(root.width, root.height)
+            # size_hint_x:None
+            size_hint_y:None
+            cols:1
+            padding:(10, 10, 10, 0)
+            spacing:25
+            height:self.minimum_height
+
+            MDTextField:
+                id:first_name
+                text:"mike"
+                hint_text:"Firstname"
+                helper_text: "eg. john"
+                helper_text_mode: "on_focus"
+                background_color: app.theme_cls.bg_normal
+                pos_hint:{"center_x":.5}
+                size_hint_x:.9
+                background_color:1,1,1,0
+                cursor_color:rgba(0,0,59,255)
+                font_size:"14sp"
+                cursor_width:"2sp"
+                multiline:False
+            MDTextField:
+                id:last_name
+                text:"john"
+                hint_text:"Lastname"
+                helper_text: "eg. Doe"
+                helper_text_mode: "on_focus"
+                background_color: app.theme_cls.bg_normal
+                pos_hint:{"center_x":.5}
+                size_hint_x:.9
+                background_color:1,1,1,0
+                cursor_color:rgba(0,0,59,255)
+                font_size:"14sp"
+                cursor_width:"2sp"
+                multiline:False
+            MDTextField:
+                id:email
+                text:"mike@mike.com"
+                hint_text:"Email"
+                helper_text: "eg. someone@something.com"
+                helper_text_mode: "on_focus"
+                validator:"email"
+                background_color: app.theme_cls.bg_normal
+                pos_hint:{"center_x":.5}
+                size_hint_x:.9
+                background_color:1,1,1,0
+                cursor_color:rgba(0,0,59,255)
+                font_size:"14sp"
+                cursor_width:"2sp"
+                multiline:False
+            MDTextField:
+                id:staff_id
+                text:"mike"
+                hint_text:"Username"
+                helper_text: "eg. 2gb4fs"
+                helper_text_mode: "on_focus"
+                background_color: app.theme_cls.bg_normal
+                pos_hint:{"center_x":.5}
+                size_hint_x:.9
+                background_color:1,1,1,0
+                cursor_color:rgba(0,0,59,255)
+                font_size:"14sp"
+                cursor_width:"2sp"
+                multiline:False
+            
+            Spinner:
+                id: role
+                text: "staff"
+                values: ["staff", "admin"]
+                size_hint_y:None
+                background_color: 0, 0, 1, .1
+                color:0,0,0,1
+                height:50
+            MDTextField:
+                id:password
+                text:"sulaiman"
+                hint_text:"Password"
+                background_color: app.theme_cls.bg_normal
+                pos_hint:{"center_x":.5}
+                size_hint_x:.9
+                background_color:1,1,1,0
+                cursor_color:rgba(0,0,59,255)
+                font_size:"14sp"
+                cursor_width:"2sp"
+                multiline:False
+
+            MDRectangleFlatIconButton:
+                text:"ADD NEW USER"
+                icon:"database-plus-outline"
+                size_hint_x:1
+                on_release: 
+                    root.register(first_name, last_name, email, staff_id, role, password)
+
+            MDLabel:
+                text:root.error_text
+                color:1, 0, 0, 1
+                halign:"center"
+                size_hint_y:None
+                height: dp(40) if root.error_text != "" else dp(0)
+    MDSpinner:
+        active:root.spinner_state
+        size_hint:None, None
+        height: dp(50)
+        width: dp(50)
+        pos_hint:{'center_x': .5, 'center_y': .5}
+                

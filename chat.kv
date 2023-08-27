@@ -1,0 +1,97 @@
+<Chat>:
+    name:"chat"
+    MDBoxLayout:
+        orientation: 'horizontal'
+        md_bg_color:0,0,1,.7
+        size_hint:1, .13
+        pos_hint:{"left":1, "top":1}
+        radius:[5, 5, 0, 0]
+        
+        MDIconButton:
+            icon:"human-handsdown"
+            size_hint_x: 0.25
+            pos_hint:{"center_y":.5}
+            theme_text_color:"Custom"
+            text_color:(1,1,1,1)
+            on_release:
+                root.manager.get_screen("profile").previous_screen = root.name
+                root.manager.get_screen("profile").access_token=root.access_token
+                root.manager.get_screen("profile").email=root.email
+                root.manager.get_screen("profile").first_name=root.first_name
+                root.manager.get_screen("profile").url=root.url
+                root.manager.get_screen("profile")._image_url=root._image_url
+                root.manager.get_screen("profile").last_name=root.last_name
+                root.manager.get_screen("profile").staff_id=root.staff_id
+                root.manager.get_screen("profile").logged_in_user=root.staff_id
+                root.manager.get_screen("profile").image_url=root.profile_image_url
+                root.manager.transition.direction="right"
+                root.manager.current="profile"
+
+        MDTextField:
+            id: search_field
+            pos_hint:{"center_y":.5}
+            hint_text: "Search User"
+            text_color_normal: "white"
+            text_color_focus: "white"
+            hint_text_color_focus: "white"
+            hint_text_color_normal: "white"
+            line_color_focus:"white"
+            line_color_normal:"white"
+            on_text: root.on_search()
+            
+        MDIconButton:
+            id:icon_button
+            theme_text_color:"Custom"
+            size_hint_x: 0.25
+            text_color:(1,1,1,1)
+            icon:"logout"
+            pos_hint:{"center_y":.5}
+            on_release: root.logout()
+    
+    MDScrollView:
+        id:scroll_view
+        effect_cls: "ScrollEffect"
+        bar_color:(0,0,1,1)
+        bar_inactive_color:(0,0,1,.5)
+        color:0,0,1,1
+        size_hint_y:.9
+        pos_hint:{"x":0, "top":.87}
+        do_scroll_x:False
+        do_scroll_y:True
+        md_bg_color:.5,.5,.5,.1
+        GridLayout:
+            id: user_grid
+            size:(root.width, root.height)
+            size_hint_x:None
+            size_hint_y:None
+            cols:1
+            padding:(10, 10, 10, 0)
+            spacing:10
+            height:self.minimum_height
+            MDList:
+                id:user_list
+
+    MDRelativeLayout:
+        size_hint: .1, .1
+        pos_hint:{"center_x":.9, "center_y":.15}
+
+        MDIconButton:
+            icon:"message-plus-outline"
+            md_bg_color: 0,0,1,.7
+            theme_text_color:"Custom"
+            text_color:(1,1,1,1)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            
+            on_release: 
+                root.manager.get_screen("user").access_token=root.access_token
+                root.manager.get_screen("user").url=root.url
+                root.manager.get_screen("user")._image_url=root._image_url
+                root.manager.get_screen("user").staff_id=root.staff_id
+                
+                root.manager.transition.direction="right"
+                root.manager.current="user"
+
+
+
+
+            

@@ -1,0 +1,142 @@
+<Profile>:
+    name:'profile'
+    MDBoxLayout:
+        size_hint:1, .1
+        md_bg_color:0,0,1,.7
+        pos_hint:{"left":1, "top":1}
+        orientation:"horizontal"
+        MDIconButton:
+            icon:"arrow-left"
+            theme_text_color:"Custom"
+            text_color:(1,1,1,1)
+            size_hint_x:.5
+            pos_hint:{"center_y":.5}
+            on_release:
+                root.manager.transition.direction="right"
+                root.manager.current=root.previous_screen
+        MDIconButton:
+            icon:"message-plus-outline"
+            theme_text_color:"Custom"
+            text_color:(1,1,1,1)
+            size_hint_x:.5
+            pos_hint:{"center_y":.5}
+            on_release:
+                root.manager.get_screen("user").access_token=root.access_token
+                root.manager.get_screen("user").staff_id=root.staff_id
+                root.manager.transition.direction="down"
+                root.manager.current="user"
+
+    MDBoxLayout:
+        size_hint:1, .89
+        md_bg_color:0,0,0,.05
+        orientation: 'vertical'
+        spacing:10
+
+        MDBoxLayout:
+            size_hint:1, .4
+            FitImage:
+                id:image
+                source:root.image_url
+                radius:[50, 50, 50, 50]
+                
+        MDBoxLayout:
+            size_hint:1, .05
+            radius:[5, 5, 0,0]
+            orientation:"horizontal"
+            padding: 20, 0, 10, 0
+            spacing:10
+            MDRectangleFlatIconButton:
+                icon:"image-edit"
+                disabled: not root.is_current_user
+                text:"Choose picture"
+                on_press:
+                    root.select_image()
+            MDRelativeLayout:
+                size_hint: .2, .1
+                pos_hint:{"center_y":.5}
+
+                MDIconButton:
+                    icon:"chat-outline"
+                    md_bg_color: 0,0,1,.7
+                    theme_text_color:"Custom"
+                    text_color:(1,1,1,1)
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    
+            
+        MDBoxLayout:
+            orientation: 'vertical'
+            padding:10
+            size_hint_y: .24
+            MDGridLayout:
+                cols:2
+                size_hint:.9, 1
+                spacing:30
+                pos_hint: {'center_x': .51}
+
+                MDLabel:
+                    text:"First name :"
+                    size_hint:.5, None
+                    height:10
+                MDLabel:
+                    text:root.first_name
+                    size_hint_y:None
+                    height:10
+                MDLabel:
+                    text:"Last name :"
+                    size_hint:.5, None
+                    height:10
+                MDLabel:
+                    text:root.last_name
+                    size_hint_y:None
+                    height:10
+                MDLabel:
+                    text:"Email :"
+                    size_hint:.5, None
+                    height:10
+                MDLabel:
+                    text:root.email
+                    size_hint_y:None
+                    height:10
+                MDLabel:
+                    text:"Username :"
+                    size_hint:.5, None
+                    height:10
+                MDLabel:
+                    text:root.staff_id
+                    size_hint_y:None
+                    height:10
+        
+        MDBoxLayout:
+            orientation:"horizontal"
+            padding:20
+            size_hint:1, .1
+            spacing:10
+            MDTextField:
+                id:password
+                hint_text:"Change Password"
+                mode: "rectangle"
+                pos_hint:{"center_x":.5, "center_y":.5}
+                background_color:1,1,1,0
+                foreground_color:rgba(0,0,59,255)
+                cursor_color:rgba(0,0,59,255)
+                font_size:"14sp"
+                cursor_width:"2sp"
+                multiline:False
+                size_hint:.7, None
+                height:50
+            MDRectangleFlatIconButton:
+                icon:"update"
+                text:"change"
+                disabled: not root.is_current_user
+                size_hint:.23, None
+                height:50
+                pos_hint:{"top":1}
+                on_press:
+                    root.change_password(password)
+
+            MDSpinner:
+                active:root.spinner_state
+                size_hint:None, None
+                height: dp(50)
+                width: dp(50)
+                pos_hint:{'center_x': .5, 'center_y': .2}

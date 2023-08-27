@@ -1,0 +1,103 @@
+<User>:
+    name:"user"
+    MDBoxLayout:
+        size_hint:1, .1
+        md_bg_color:0,0,1,.7
+        pos_hint:{"left":1, "top":1}
+        spacing:15
+        padding: [0,0,10,0]
+        MDIconButton:
+            icon:"arrow-left"
+            theme_text_color:"Custom"
+            text_color:(1,1,1,1)
+            pos_hint:{"center_y":.5}
+            on_release:
+                root.manager.transition.direction="right"
+                root.manager.current="chat"
+        
+        MDTextField:
+            id: search_field
+            hint_text: "Search User"
+            text_color_normal: "white"
+            text_color_focus: "white"
+            hint_text_color_focus: "white"
+            hint_text_color_normal: "white"
+            line_color_focus:"white"
+            line_color_normal:"white"
+            on_text: root.get_search()
+
+    MDRelativeLayout:
+        size_hint: 1, .1
+        pos_hint: {'y': 0}
+        # md_bg_color:.5, .5, .5, .5
+    MDScrollView:
+        bar_color:(0,0,1,1)
+        bar_inactive_color:(0,0,1,.5)
+        color:0,0,1,1
+        size_hint_y:.89
+        pos_hint:{"x":0, "y":0}
+        do_scroll_x:False
+        do_scroll_y:True
+        GridLayout:
+            id:user_grid
+            size:(root.width, root.height)
+            size_hint_x:None
+            size_hint_y:None
+            padding:(5, 0, 5, 55)
+            height:self.minimum_height
+            cols:4
+            spacing:10
+            # MDList:
+            #     id:user_list
+
+    MDRelativeLayout:
+        size_hint: 1, .1
+        pos_hint: {'y': 0}
+        # md_bg_color:.5, .5, .5, .5
+
+        MDRectangleFlatIconButton:
+            id:staff
+            icon:"human"
+            text:"STAFFS"
+            size_hint_x:.4
+            pos_hint: {'right': .45,'center_y': .5}
+            on_release: root.get_staff_users()
+
+        MDRectangleFlatIconButton:
+            id:admin
+            icon:"human-handsup"
+            text:"ADMINS"
+            size_hint_x:.4
+            pos_hint: {'right': .95,'center_y': .5}
+
+            on_release: root.get_admin_users()
+        
+    MDRelativeLayout:
+        size_hint: 1, .1
+        pos_hint: {'top': .98}
+
+        MDLabel:
+            text: root._search_text
+            halign:"center"
+            size_hint:1, .1
+            font_style:"Caption"
+    MDFloatLayout:
+        size_hint: 1, .1
+        pos_hint: {'top': .3}
+        # md_bg_color:.5, .5, .5, .5
+        MDIconButton:
+            icon:"database-plus-outline"
+            # size_hint_x: 0.25
+            pos_hint:{"x":.85,"center_y":.5}
+            theme_text_color:"Custom"
+            md_bg_color: 0,0,1,.7
+            text_color:1,1,1,1
+            on_release: 
+                root.manager.get_screen("register").access_token=root.access_token
+                root.manager.get_screen("register").url=root.url
+                # root.manager.get_screen("profile")._image_url=root._image_url
+                root.manager.transition.direction="right"
+                root.manager.current="register"
+            
+
+
